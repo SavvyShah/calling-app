@@ -1,7 +1,7 @@
 import { node } from "prop-types";
 import React, { useEffect, useState } from "react";
 
-const BASE_URL = "https://cerulean-marlin-wig.cyclic.app/";
+const BASE_URL = "https://cerulean-marlin-wig.cyclic.app";
 
 /**
  * GET - BASE_URL/activities: get calls to display in the Activity Feed

@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ActivitiesProvider } from "./useActivities";
 
 const App = () => {
   return (
-    <div>
+    <ActivitiesProvider>
       <BrowserRouter>
         <Routes>
           <Route
@@ -35,7 +36,7 @@ const App = () => {
           ></Route>
         </Routes>
       </BrowserRouter>
-    </div>
+    </ActivitiesProvider>
   );
 };
 
