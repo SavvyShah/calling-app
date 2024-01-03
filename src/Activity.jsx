@@ -8,9 +8,21 @@ const cardClass =
   "flex items-center p-2 border m-2 border-gray-200 w-11/12 rounded-md";
 
 const formatSecondsToMMSS = (seconds) => {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  return `${minutes}mins ${remainingSeconds}secs`;
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds - hours * 3600) / 60);
+  const remainingSeconds = seconds - hours * 3600 - minutes * 60;
+
+  let output = "";
+  if (hours > 0) {
+    output += `${hours}hrs `;
+  }
+  if (minutes > 0) {
+    output += `${minutes}mins `;
+  }
+  if (remainingSeconds > 0) {
+    output += `${remainingSeconds}secs`;
+  }
+  return output;
 };
 
 export const Activity = () => {
