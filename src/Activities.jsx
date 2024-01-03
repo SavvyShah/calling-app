@@ -1,6 +1,10 @@
 import React from "react";
 import { useActivities } from "./useActivities";
 import classNames from "classnames";
+import Button from "./styled-components/Button";
+import Icon from "./styled-components/Icon";
+
+const buttonIcon = "text-gray-400 group-hover:text-gray-200 me-1";
 
 export const Activities = () => {
   const { activities, archiveActivity, resetActivities } = useActivities();
@@ -27,13 +31,15 @@ export const Activities = () => {
 
   return (
     <div className="flex flex-col items-center justify-center py-20 bg-gray-50">
-      <button
-        className="group p-4 block mx-auto my-2 rounded hover:bg-red-500 hover:text-white rounded-md w-11/12 border border-gray-200 text-left"
-        onClick={resetActivities}
-      >
-        <i className="fa fa-rotate text-gray-400 group-hover:text-gray-200 me-1"></i>{" "}
+      <Button onClick={resetActivities} type="danger">
+        <Icon name="rotate" className={buttonIcon} />
         Reset
-      </button>
+      </Button>
+      <Button>
+        <Icon name="archive" className={buttonIcon} />
+        View archived ({activities.length - unarchivedActivities.length})
+      </Button>
+
       <ul className="w-full">
         {Array.from(sortedActivitiesMap).map(([date, activities]) => (
           <li key={date}>
@@ -46,27 +52,20 @@ export const Activities = () => {
                   key={activity.id}
                   className="flex items-center p-4 border-b border-gray-200 last:border-b-0 hover:bg-gray-200 cursor-pointer"
                 >
-                  {activity.direction === "inbound" ? (
-                    <i
-                      className={classNames(
-                        {
-                          "text-red-600": activity.call_type === "answered",
-                          "text-green-600": activity.call_type === "missed",
-                        },
-                        "fa fa-arrow-down me-2"
-                      )}
-                    ></i>
-                  ) : (
-                    <i
-                      className={classNames(
-                        {
-                          "text-red-600": activity.call_type === "answered",
-                          "text-green-600": activity.call_type === "missed",
-                        },
-                        "fa fa-arrow-up me-2"
-                      )}
-                    ></i>
-                  )}
+                  <Icon
+                    name={
+                      activity.direction === "inbound"
+                        ? "arrow-down"
+                        : "arrow-up"
+                    }
+                    className={classNames(
+                      {
+                        "text-red-600": activity.call_type === "answered",
+                        "text-green-600": activity.call_type === "missed",
+                      },
+                      "me-2"
+                    )}
+                  />
                   <div>
                     <h2 className="text-md font-semibold">
                       {activity.from || "Anonymous"}
