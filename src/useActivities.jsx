@@ -21,7 +21,25 @@ export function ActivitiesProvider({ children }) {
   useEffect(() => {
     fetch(`${BASE_URL}/activities`)
       .then((res) => res.json())
-      .then((data) => setActivities(data));
+      .then((data) => {
+        const activities = data.map((activity) => {
+          // Add default values for missing fields
+          // We assume that if call_type is missing, it's a voicemail
+          // We assume that if direction is missing, it's an inbound call
+          // Check a list of assumptions in the README
+
+          return {
+            ...activity,
+            from: activity.from || "Anonymous",
+            to: activity.to || "Anonymous",
+            via: activity.via || "Anonymous",
+            direction: activity.direction || "inbound",
+            call_type: activity.call_type || "voicemail",
+            created_at: activity.created_at || new Date().toISOString(),
+          };
+        });
+        setActivities(activities);
+      });
   }, []);
 
   const archiveActivity = (id) => {

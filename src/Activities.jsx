@@ -76,7 +76,11 @@ export const Activities = () => {
                     </div>
                     <button
                       className="px-2 py-1 text-white bg-red-500 rounded hover:bg-red-600 ml-auto"
-                      onClick={() => archiveActivity(activity.id)}
+                      onClick={(e) => {
+                        // Don't fire moving to activity page
+                        e.preventDefault();
+                        archiveActivity(activity.id);
+                      }}
                     >
                       <Icon name="archive" />
                     </button>

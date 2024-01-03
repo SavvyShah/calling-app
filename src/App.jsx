@@ -11,14 +11,7 @@ import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { Activities } from "./Activities";
 import { SwitchTransition, Transition } from "react-transition-group";
-
-const Activity = () => {
-  return (
-    <div className="flex flex-col items-center">
-      <h1>Activity</h1>
-    </div>
-  );
-};
+import { Activity } from "./Activity";
 
 const routes = [
   {
