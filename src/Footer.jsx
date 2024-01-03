@@ -1,16 +1,17 @@
+import { Link } from "react-router-dom";
 import Icon from "./styled-components/Icon";
 
 export const Footer = () => {
   return (
     <ul className="fixed bottom-0 border border-gray-100 bg-white max-w-md w-full p-2 flex flex-wrap justify-around text-sm font-medium text-center">
       <li>
-        <a
-          href="/"
+        <Link
+          to="/"
           className="inline-block px-4 py-3 text-white bg-green-600 rounded-lg active"
           aria-current="page"
         >
           <Icon name="home" />
-        </a>
+        </Link>
       </li>
       <li>
         <a

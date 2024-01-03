@@ -3,6 +3,7 @@ import { useActivities } from "./useActivities";
 import classNames from "classnames";
 import Button from "./styled-components/Button";
 import Icon from "./styled-components/Icon";
+import { Link } from "react-router-dom";
 
 const buttonIcon = "text-gray-400 group-hover:text-gray-200 me-1";
 
@@ -30,7 +31,7 @@ export const Activities = () => {
   );
 
   return (
-    <div className="flex flex-col items-center justify-center py-20 bg-gray-50">
+    <div className="flex flex-col items-center justify-center">
       <Button onClick={resetActivities} type="danger">
         <Icon name="rotate" className={buttonIcon} />
         Reset
@@ -48,40 +49,39 @@ export const Activities = () => {
             </h2>
             <ul>
               {activities.map((activity) => (
-                <li
-                  key={activity.id}
-                  className="flex items-center p-4 border-b border-gray-200 last:border-b-0 hover:bg-gray-200 cursor-pointer"
-                >
-                  <Icon
-                    name={
-                      activity.direction === "inbound"
-                        ? "arrow-down"
-                        : "arrow-up"
-                    }
-                    className={classNames(
-                      {
-                        "text-red-600": activity.call_type !== "answered",
-                        "text-green-600": activity.call_type === "answered",
-                      },
-                      "me-2"
-                    )}
-                  />
-                  <div>
-                    <h2 className="text-md font-semibold">
-                      {activity.from || "Anonymous"}
-                    </h2>
-                    <p className="text-sm text-slate-600">
-                      {activity.call_type === "answered" ? "had" : "missed"} a
-                      call with {activity.to || "Anonymous"}
-                    </p>
-                  </div>
-                  <button
-                    className="px-2 py-1 text-white bg-red-500 rounded hover:bg-red-600 ml-auto"
-                    onClick={() => archiveActivity(activity.id)}
-                  >
-                    <Icon name="archive" />
-                  </button>
-                </li>
+                <Link key={activity.id} to={`/activities/${activity.id}`}>
+                  <li className="flex items-center p-4 border-b border-gray-200 last:border-b-0 hover:bg-gray-200 cursor-pointer">
+                    <Icon
+                      name={
+                        activity.direction === "inbound"
+                          ? "arrow-down"
+                          : "arrow-up"
+                      }
+                      className={classNames(
+                        {
+                          "text-red-600": activity.call_type !== "answered",
+                          "text-green-600": activity.call_type === "answered",
+                        },
+                        "me-2"
+                      )}
+                    />
+                    <div>
+                      <h2 className="text-md font-semibold">
+                        {activity.from || "Anonymous"}
+                      </h2>
+                      <p className="text-sm text-slate-600">
+                        {activity.call_type === "answered" ? "had" : "missed"} a
+                        call with {activity.to || "Anonymous"}
+                      </p>
+                    </div>
+                    <button
+                      className="px-2 py-1 text-white bg-red-500 rounded hover:bg-red-600 ml-auto"
+                      onClick={() => archiveActivity(activity.id)}
+                    >
+                      <Icon name="archive" />
+                    </button>
+                  </li>
+                </Link>
               ))}
             </ul>
           </li>
