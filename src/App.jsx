@@ -28,12 +28,6 @@ const routes = [
     nodeRef: React.createRef(),
   },
   {
-    name: "Activities",
-    path: "/activities",
-    element: <Activities />,
-    nodeRef: React.createRef(),
-  },
-  {
     name: "Activity",
     path: "/activities/:id",
     element: <Activity />,
@@ -47,12 +41,14 @@ const defaultStyle = {
   transition: `transform ${ROUTE_TRANSITION_DURATION}ms ease-in-out`,
 };
 const transitionStyles = {
+  // Default route would enter from the left and exit to the left
   Home: {
     entering: { transform: "translateX(-100%)", opacity: 0 },
     entered: { transform: "translateX(0%)", opacity: 1 },
     exiting: { transform: "translateX(-100%)", opacity: 1 },
     exited: { transform: "translateX(-100%)", opacity: 0 },
   },
+  // Activity route would enter from the right and exit to the right
   Activity: {
     entering: { transform: "translateX(100%)", opacity: 0 },
     entered: { transform: "translateX(0%)", opacity: 1 },
@@ -65,6 +61,7 @@ const App = () => {
   const location = useLocation();
   const currentOutlet = useOutlet();
   const { id } = useParams();
+  // When location.pathname is empty, we are at the root of the app
   const currentPath = location.pathname || "/";
   const { nodeRef, name } =
     routes.find((route) => route.path.replace(":id", id) === currentPath) ?? {};
