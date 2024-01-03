@@ -1,3 +1,5 @@
+import Icon from "./styled-components/Icon";
+
 export const Footer = () => {
   return (
     <ul className="fixed bottom-0 border border-gray-100 bg-white max-w-md w-full p-2 flex flex-wrap justify-around text-sm font-medium text-center">
@@ -7,7 +9,7 @@ export const Footer = () => {
           className="inline-block px-4 py-3 text-white bg-green-600 rounded-lg active"
           aria-current="page"
         >
-          <i className="fa fa-home"></i>
+          <Icon name="home" />
         </a>
       </li>
       <li>
@@ -15,7 +17,7 @@ export const Footer = () => {
           href="#"
           className="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100"
         >
-          <i className="fa fa-phone"></i>
+          <Icon name="phone" />
         </a>
       </li>
       <li>
@@ -23,7 +25,7 @@ export const Footer = () => {
           href="#"
           className="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100"
         >
-          <i className="fa fa-address-book"></i>
+          <Icon name="address-book" />
         </a>
       </li>
       <li>
@@ -31,7 +33,7 @@ export const Footer = () => {
           href="#"
           className="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100"
         >
-          <i className="fa fa-message"></i>
+          <Icon name="message" />
         </a>
       </li>
     </ul>

@@ -60,8 +60,8 @@ export const Activities = () => {
                     }
                     className={classNames(
                       {
-                        "text-red-600": activity.call_type === "answered",
-                        "text-green-600": activity.call_type === "missed",
+                        "text-red-600": activity.call_type !== "answered",
+                        "text-green-600": activity.call_type === "answered",
                       },
                       "me-2"
                     )}
@@ -71,14 +71,15 @@ export const Activities = () => {
                       {activity.from || "Anonymous"}
                     </h2>
                     <p className="text-sm text-slate-600">
-                      had a call with {activity.to || "Anonymous"}
+                      {activity.call_type === "answered" ? "had" : "missed"} a
+                      call with {activity.to || "Anonymous"}
                     </p>
                   </div>
                   <button
-                    className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600 ml-auto"
+                    className="px-2 py-1 text-white bg-red-500 rounded hover:bg-red-600 ml-auto"
                     onClick={() => archiveActivity(activity.id)}
                   >
-                    <i className="fa fa-archive"></i>
+                    <Icon name="archive" />
                   </button>
                 </li>
               ))}
