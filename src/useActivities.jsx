@@ -47,13 +47,11 @@ export function ActivitiesProvider({ children }) {
       headers: {
         "Content-Type": "application/json",
       },
-    })
-      .then((res) => res.json())
-      .then(() => {
-        fetch(`${BASE_URL}/activities`)
-          .then((res) => res.json())
-          .then((data) => setActivities(data));
-      });
+    }).then(() => {
+      fetch(`${BASE_URL}/activities`)
+        .then((res) => res.json())
+        .then((data) => setActivities(data));
+    });
   };
 
   return (
