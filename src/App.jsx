@@ -41,33 +41,39 @@ const routes = [
   },
 ];
 
-const ROUTE_TRANSITION_DURATION = 1000;
+const ROUTE_TRANSITION_DURATION = 200;
 
 const defaultStyle = {
-  transition: `opacity ${ROUTE_TRANSITION_DURATION}ms ease-in-out`,
-  opacity: 0,
+  transition: `transform ${ROUTE_TRANSITION_DURATION}ms ease-in-out`,
 };
 const transitionStyles = {
-  entering: { opacity: 0 },
-  entered: { opacity: 1 },
-  exiting: { opacity: 0 },
-  exited: { opacity: 0 },
+  Home: {
+    entering: { transform: "translateX(-100%)", opacity: 0 },
+    entered: { transform: "translateX(0%)", opacity: 1 },
+    exiting: { transform: "translateX(-100%)", opacity: 1 },
+    exited: { transform: "translateX(-100%)", opacity: 0 },
+  },
+  Activity: {
+    entering: { transform: "translateX(100%)", opacity: 0 },
+    entered: { transform: "translateX(0%)", opacity: 1 },
+    exiting: { transform: "translateX(100%)", opacity: 1 },
+    exited: { transform: "translateX(100%)", opacity: 0 },
+  },
 };
 
 const App = () => {
   const location = useLocation();
   const currentOutlet = useOutlet();
   const { id } = useParams();
-  const { nodeRef } =
-    routes.find(
-      (route) => route.path.replace(":id", id) === (location.pathname || "/")
-    ) ?? {};
+  const currentPath = location.pathname || "/";
+  const { nodeRef, name } =
+    routes.find((route) => route.path.replace(":id", id) === currentPath) ?? {};
 
   return (
-    <div className="max-w-md h-screen mx-auto border border-slate-100 flex flex-col">
+    <div className="max-w-md h-screen mx-auto border border-slate-100 flex flex-col overflow-hidden">
       <Navbar />
-      <div className="bg-gray-50 max-w-md w-full h-full overflow-auto">
-        <SwitchTransition>
+      <div className="bg-gray-50 w-md h-full overflow-y-auto overflow-x-hidden">
+        <SwitchTransition mode="out-in">
           <Transition
             key={location.pathname}
             nodeRef={nodeRef}
@@ -75,7 +81,7 @@ const App = () => {
           >
             {(state) => (
               <div
-                style={{ ...defaultStyle, ...transitionStyles[state] }}
+                style={{ ...defaultStyle, ...transitionStyles[name][state] }}
                 ref={nodeRef}
               >
                 {currentOutlet}
