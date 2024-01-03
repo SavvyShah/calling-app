@@ -31,14 +31,12 @@ export function ActivitiesProvider({ children }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ is_archived: true }),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        const updatedActivities = activities.filter(
-          (activity) => activity.id !== id
-        );
-        setActivities(updatedActivities);
-      });
+    }).then(() => {
+      const updatedActivities = activities.filter(
+        (activity) => activity.id !== id
+      );
+      setActivities(updatedActivities);
+    });
   };
 
   const resetActivities = () => {
@@ -48,9 +46,9 @@ export function ActivitiesProvider({ children }) {
         "Content-Type": "application/json",
       },
     }).then(() => {
-      fetch(`${BASE_URL}/activities`)
-        .then((res) => res.json())
-        .then((data) => setActivities(data));
+      setActivities(
+        activities.map((activity) => ({ ...activity, is_archived: false }))
+      );
     });
   };
 
