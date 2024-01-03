@@ -3,7 +3,7 @@ import Icon from "./styled-components/Icon";
 
 export const Footer = () => {
   return (
-    <ul className="fixed bottom-0 border border-gray-100 bg-white max-w-md w-full p-2 flex flex-wrap justify-around text-sm font-medium text-center">
+    <ul className="z-1 h-18 border border-gray-100 bg-white max-w-md w-full p-2 flex flex-wrap justify-around text-sm font-medium text-center">
       <li>
         <Link
           to="/"

@@ -64,9 +64,9 @@ const App = () => {
     ) ?? {};
 
   return (
-    <div className="max-w-md min-h-screen mx-auto border border-slate-100">
+    <div className="max-w-md h-screen mx-auto border border-slate-100 flex flex-col">
       <Navbar />
-      <div className="py-20 bg-gray-50">
+      <div className="bg-gray-50 max-w-md w-full h-full overflow-auto">
         <SwitchTransition>
           <Transition
             key={location.pathname}
