@@ -12,6 +12,7 @@ import { Footer } from "./Footer";
 import { Activities } from "./Activities";
 import { SwitchTransition, Transition } from "react-transition-group";
 import { Activity } from "./Activity";
+import { Archive } from "./Archive";
 
 const routes = [
   {
@@ -24,6 +25,12 @@ const routes = [
     name: "Activity",
     path: "/activities/:id",
     element: <Activity />,
+    nodeRef: React.createRef(),
+  },
+  {
+    name: "Archive",
+    path: "/archive",
+    element: <Archive />,
     nodeRef: React.createRef(),
   },
 ];
@@ -43,6 +50,12 @@ const transitionStyles = {
   },
   // Activity route would enter from the right and exit to the right
   Activity: {
+    entering: { transform: "translateX(100%)", opacity: 0 },
+    entered: { transform: "translateX(0%)", opacity: 1 },
+    exiting: { transform: "translateX(100%)", opacity: 1 },
+    exited: { transform: "translateX(100%)", opacity: 0 },
+  },
+  Archive: {
     entering: { transform: "translateX(100%)", opacity: 0 },
     entered: { transform: "translateX(0%)", opacity: 1 },
     exiting: { transform: "translateX(100%)", opacity: 1 },

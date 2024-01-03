@@ -50,8 +50,23 @@ export function ActivitiesProvider({ children }) {
       },
       body: JSON.stringify({ is_archived: true }),
     }).then(() => {
-      const updatedActivities = activities.filter(
-        (activity) => activity.id !== id
+      const updatedActivities = activities.map((activity) =>
+        activity.id === id ? { ...activity, is_archived: true } : activity
+      );
+      setActivities(updatedActivities);
+    });
+  };
+
+  const unarchiveActivity = (id) => {
+    fetch(`${BASE_URL}/activities/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ is_archived: false }),
+    }).then(() => {
+      const updatedActivities = activities.map((activity) =>
+        activity.id === id ? { ...activity, is_archived: false } : activity
       );
       setActivities(updatedActivities);
     });
@@ -71,7 +86,14 @@ export function ActivitiesProvider({ children }) {
   };
 
   return (
-    <CTX.Provider value={{ activities, archiveActivity, resetActivities }}>
+    <CTX.Provider
+      value={{
+        activities,
+        archiveActivity,
+        resetActivities,
+        unarchiveActivity,
+      }}
+    >
       {children}
     </CTX.Provider>
   );

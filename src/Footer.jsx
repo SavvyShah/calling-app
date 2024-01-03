@@ -16,16 +16,18 @@ export const Footer = () => {
           })}
           aria-current="page"
         >
-          <Icon name="home" />
+          <Icon name="phone" />
         </Link>
       </li>
       <li>
-        <a
-          href="#"
-          className="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100"
+        <Link
+          to="/archive"
+          className={classNames("inline-block px-4 py-3 rounded-lg active", {
+            "bg-green-600 text-white": currentPath === "/archive",
+          })}
         >
-          <Icon name="phone" />
-        </a>
+          <Icon name="archive" />
+        </Link>
       </li>
       <li>
         <a
