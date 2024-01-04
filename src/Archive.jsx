@@ -47,10 +47,7 @@ export const Archive = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <Link
-        className="sticky top-2 left-2 bg-white self-start px-2 py-1"
-        to="/"
-      >
+      <Link className="sticky top-2 left-2 self-start px-2 py-1 mb-2" to="/">
         <Icon name="arrow-left" />
       </Link>
 

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useActivities } from "./useActivities";
 import Icon from "./styled-components/Icon";
 import classNames from "classnames";
@@ -31,6 +31,9 @@ export const Activity = () => {
   const activity = activities.find((activity) => activity.id === id);
   return (
     <div className="flex flex-col items-center">
+      <Link className="sticky top-2 left-2 self-start px-2 py-1 mb-2" to="/">
+        <Icon name="arrow-left" />
+      </Link>
       <div className={cardClass}>
         <Icon
           name={activity.direction === "inbound" ? "arrow-down" : "arrow-up"}
