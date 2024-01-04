@@ -51,32 +51,47 @@ export function ActivitiesProvider({ children }) {
   }, []);
 
   const archiveActivity = (id) => {
+    // Optimistic update
+    const updatedActivities = activities.map((activity) =>
+      activity.id === id ? { ...activity, is_archived: true } : activity
+    );
+    setActivities(updatedActivities);
     fetch(`${BASE_URL}/activities/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ is_archived: true }),
-    }).then(() => {
-      const updatedActivities = activities.map((activity) =>
-        activity.id === id ? { ...activity, is_archived: true } : activity
-      );
-      setActivities(updatedActivities);
+    }).then((e) => {
+      if (!e.ok) {
+        console.error("Error occured", "Rolling back");
+        const updatedActivities = activities.map((activity) =>
+          activity.id === id ? { ...activity, is_archived: false } : activity
+        );
+        setActivities(updatedActivities);
+      }
     });
   };
 
   const unarchiveActivity = (id) => {
+    // Optimistic update
+    const updatedActivities = activities.map((activity) =>
+      activity.id === id ? { ...activity, is_archived: false } : activity
+    );
+    setActivities(updatedActivities);
     fetch(`${BASE_URL}/activities/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ is_archived: false }),
-    }).then(() => {
-      const updatedActivities = activities.map((activity) =>
-        activity.id === id ? { ...activity, is_archived: false } : activity
-      );
-      setActivities(updatedActivities);
+    }).then((e) => {
+      if (!e.ok) {
+        const updatedActivities = activities.map((activity) =>
+          activity.id === id ? { ...activity, is_archived: true } : activity
+        );
+        setActivities(updatedActivities);
+      }
     });
   };
 
