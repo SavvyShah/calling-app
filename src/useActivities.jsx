@@ -51,46 +51,46 @@ export function ActivitiesProvider({ children }) {
   }, []);
 
   const archiveActivity = (id) => {
-    // fetch(`${BASE_URL}/activities/${id}`, {
-    //   method: "PATCH",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ is_archived: true }),
-    // }).then(() => {
-    const updatedActivities = activities.map((activity) =>
-      activity.id === id ? { ...activity, is_archived: true } : activity
-    );
-    setActivities(updatedActivities);
-    // });
+    fetch(`${BASE_URL}/activities/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ is_archived: true }),
+    }).then(() => {
+      const updatedActivities = activities.map((activity) =>
+        activity.id === id ? { ...activity, is_archived: true } : activity
+      );
+      setActivities(updatedActivities);
+    });
   };
 
   const unarchiveActivity = (id) => {
-    // fetch(`${BASE_URL}/activities/${id}`, {
-    //   method: "PATCH",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ is_archived: false }),
-    // }).then(() => {
-    const updatedActivities = activities.map((activity) =>
-      activity.id === id ? { ...activity, is_archived: false } : activity
-    );
-    setActivities(updatedActivities);
-    // });
+    fetch(`${BASE_URL}/activities/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ is_archived: false }),
+    }).then(() => {
+      const updatedActivities = activities.map((activity) =>
+        activity.id === id ? { ...activity, is_archived: false } : activity
+      );
+      setActivities(updatedActivities);
+    });
   };
 
   const resetActivities = () => {
-    // fetch(`${BASE_URL}/reset`, {
-    //   method: "PATCH",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // }).then(() => {
-    setActivities(
-      activities.map((activity) => ({ ...activity, is_archived: false }))
-    );
-    // });
+    fetch(`${BASE_URL}/reset`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(() => {
+      setActivities(
+        activities.map((activity) => ({ ...activity, is_archived: false }))
+      );
+    });
   };
 
   return (
