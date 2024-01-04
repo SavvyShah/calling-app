@@ -1,5 +1,5 @@
 import { node } from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const BASE_URL = "https://cerulean-marlin-wig.cyclic.app";
 
@@ -17,6 +17,7 @@ const CTX = React.createContext();
 
 export function ActivitiesProvider({ children }) {
   const [activities, setActivities] = useState([]);
+  const nodeMapRef = useRef({});
 
   useEffect(() => {
     fetch(`${BASE_URL}/activities`)
@@ -38,51 +39,58 @@ export function ActivitiesProvider({ children }) {
             created_at: activity.created_at || new Date().toISOString(),
           };
         });
+
+        // Add a nodeRef to each activity
+        activities.forEach((activity) => {
+          nodeMapRef.current[activity.id] = React.createRef();
+          activity.nodeRef = nodeMapRef.current[activity.id];
+        });
+
         setActivities(activities);
       });
   }, []);
 
   const archiveActivity = (id) => {
-    fetch(`${BASE_URL}/activities/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ is_archived: true }),
-    }).then(() => {
-      const updatedActivities = activities.map((activity) =>
-        activity.id === id ? { ...activity, is_archived: true } : activity
-      );
-      setActivities(updatedActivities);
-    });
+    // fetch(`${BASE_URL}/activities/${id}`, {
+    //   method: "PATCH",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ is_archived: true }),
+    // }).then(() => {
+    const updatedActivities = activities.map((activity) =>
+      activity.id === id ? { ...activity, is_archived: true } : activity
+    );
+    setActivities(updatedActivities);
+    // });
   };
 
   const unarchiveActivity = (id) => {
-    fetch(`${BASE_URL}/activities/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ is_archived: false }),
-    }).then(() => {
-      const updatedActivities = activities.map((activity) =>
-        activity.id === id ? { ...activity, is_archived: false } : activity
-      );
-      setActivities(updatedActivities);
-    });
+    // fetch(`${BASE_URL}/activities/${id}`, {
+    //   method: "PATCH",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ is_archived: false }),
+    // }).then(() => {
+    const updatedActivities = activities.map((activity) =>
+      activity.id === id ? { ...activity, is_archived: false } : activity
+    );
+    setActivities(updatedActivities);
+    // });
   };
 
   const resetActivities = () => {
-    fetch(`${BASE_URL}/reset`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(() => {
-      setActivities(
-        activities.map((activity) => ({ ...activity, is_archived: false }))
-      );
-    });
+    // fetch(`${BASE_URL}/reset`, {
+    //   method: "PATCH",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // }).then(() => {
+    setActivities(
+      activities.map((activity) => ({ ...activity, is_archived: false }))
+    );
+    // });
   };
 
   return (
@@ -92,6 +100,7 @@ export function ActivitiesProvider({ children }) {
         archiveActivity,
         resetActivities,
         unarchiveActivity,
+        nodeMap: nodeMapRef.current,
       }}
     >
       {children}
