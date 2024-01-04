@@ -19,6 +19,10 @@ When we archive or unarchive an activity, we update the state optimistically. If
 
 There are additional icons in the footer, present for making UI look complete, which don't do anything. They are the two icons from the last namely contact-list and messages.
 
+# Tailwind
+
+I'm using tailwind which means the `className`s can be very long. We can mitigate this problem in many ways. One of which is to refactor the components, which take care of styling, into a new folder called `styled-components`. I haven't put much thought on this because of time constraints.
+
 # How to run locally
 
 ```sh
